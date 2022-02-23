@@ -19,9 +19,9 @@ class Level:
         for i, row in enumerate(map):
             for j, t in enumerate(row):
                 if t==1:
-                    Tile((TILE_SIZE*i, TILE_SIZE*j), [self.visible, self.obstacles])
+                    Tile((TILE_SIZE*j, TILE_SIZE*i), [self.visible, self.obstacles])
                 elif t==2:
-                    self.player = Player((TILE_SIZE*i, TILE_SIZE*j), [self.visible], self.obstacles)
+                    self.player = Player((TILE_SIZE*j, TILE_SIZE*i), [self.visible], self.obstacles)
 
     def update(self) -> None:
         self.visible.update()

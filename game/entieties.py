@@ -81,8 +81,13 @@ class Enemy(Entity):
     def __init__(self, pos, grups, collision_sprites, image_path):
         super().__init__(pos, grups, collision_sprites, image_path)
 
-    def atack(self):
+    def mele_atack(self):
         pass
 
-    def colide_atack(self, range, direction):
+    def mele_colide_atack(self, range, direction):
         pass
+
+    def range_atack(self, direction, count, speed):
+        pass
+
+
