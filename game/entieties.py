@@ -75,3 +75,14 @@ class Player(Entity):
     def update(self, *args, **kwargs) -> None:
         self.input()
         self.move(self.speed)
+
+class Enemy(Entity):
+
+    def __init__(self, pos, grups, collision_sprites, image_path):
+        super().__init__(pos, grups, collision_sprites, image_path)
+
+    def atack(self):
+        pass
+
+    def colide_atack(self, range, direction):
+        pass
