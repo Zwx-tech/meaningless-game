@@ -1,4 +1,5 @@
 import pygame
+from math import sin, cos, pi
 from debug import debug
 from settings import *
 
@@ -44,6 +45,10 @@ class Entity(pygame.sprite.Sprite):
 
         self.rect.center = self.hitbox.center
 
+    def rotate(self, alpha):
+        alpha = alpha/360 * (2 * pi)
+        self.direction = pygame.Vector2(cos(alpha), sin(alpha))
+
     def update(self, *args, **kwargs) -> None:
         self.move(self.speed)
 
@@ -76,18 +81,15 @@ class Player(Entity):
         self.input()
         self.move(self.speed)
 
-class Enemy(Entity):
+    class Enemy(Entity):
 
-    def __init__(self, pos, grups, collision_sprites, image_path):
-        super().__init__(pos, grups, collision_sprites, image_path)
+        def __init__(self, pos, grups, collision_sprites, image_path):
+            super().__init__(pos, grups, collision_sprites, image_path)
 
-    def mele_atack(self):
-        pass
+        def mele_atack(self, directions, ):
+            pass
 
-    def mele_colide_atack(self, range, direction):
-        pass
-
-    def range_atack(self, direction, count, speed):
-        pass
+        def range_atack(self, directions, count, speed, range):
+            pass
 
 

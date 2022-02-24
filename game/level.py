@@ -41,7 +41,6 @@ class CameraGrup(pygame.sprite.Group):
 
     def show(self, p: Player):
         self.pos.x, self.pos.y = p.rect.centerx - self.window_w, p.rect.centery - self.window_h
-        self.view.x = self.pos.x
-        self.view.y = self.pos.y
+        self.view.x, self.view.y = self.pos.x, self.pos.y
         for sprite in [s for s in sorted(self.sprites(), key = lambda s: s.rect.centery) if s.rect.colliderect(self.view)]:
             self.screen.blit(sprite.image, sprite.rect.topleft - self.pos)
