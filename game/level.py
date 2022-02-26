@@ -1,7 +1,7 @@
 import pygame
 from tile import Tile
 from settings import *
-from entieties import Player
+from entieties import Player, TestEnemy
 
 class Level:
 
@@ -11,6 +11,7 @@ class Level:
 
         self.visible = CameraGrup()
         self.obstacles = pygame.sprite.Group()
+        self.enemies = pygame.sprite.Group()
         self.player = None
 
         self.load_map(MAP)
@@ -22,9 +23,12 @@ class Level:
                     Tile((TILE_SIZE*j, TILE_SIZE*i), [self.visible, self.obstacles])
                 elif t==2:
                     self.player = Player((TILE_SIZE*j, TILE_SIZE*i), [self.visible], self.obstacles)
+                elif t==3:
+                    TestEnemy((TILE_SIZE*j, TILE_SIZE*i), [self.visible, self.enemies], self.obstacles)
 
     def update(self) -> None:
-        self.visible.update()
+        self.player.update()
+        self.enemies.update()
         self.visible.show(self.player)
 
 

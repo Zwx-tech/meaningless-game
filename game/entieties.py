@@ -86,15 +86,29 @@ class Player(Entity):
         self.rotate(15)
         self.move(self.speed)
 
-    class Enemy(Entity):
+class Enemy(Entity):
 
-        def __init__(self, pos, grups, collision_sprites, image_path):
-            super().__init__(pos, grups, collision_sprites, image_path)
+    def __init__(self, pos, grups, collision_sprites, image_path="graphic/test/player.png"):
+        super().__init__(pos, grups, collision_sprites, image_path)
 
-        def mele_atack(self, directions, ):
-            pass
+    def mele_atack(self, directions, ):
+        pass
 
-        def range_atack(self, directions, count, speed, range):
-            pass
+    def range_atack(self, directions, count, speed, range):
+        pass
 
+class TestEnemy(Enemy):
 
+    def __init__(self, pos, grups, collision_sprites, image_path="graphic/test/player.png"):
+        super().__init__(pos, grups, collision_sprites, image_path)
+        self.ai = None # u need to pass AI class here
+
+    def mele_atack(self, directions, ):
+        pass
+
+    def range_atack(self, directions, count, speed, range):
+        pass
+
+    def update(self, *args, **kwargs) -> None:
+        # self.ai.decide()
+        self.move(self.speed)
