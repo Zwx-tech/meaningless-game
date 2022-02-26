@@ -45,9 +45,13 @@ class Entity(pygame.sprite.Sprite):
 
         self.rect.center = self.hitbox.center
 
-    def rotate(self, alpha):
+    def rotate(self, alpha=False):
+        if alpha is False: self.direction = pygame.Vector2(0,0)
+        print(self.direction.magnitude())
         alpha = alpha/360 * (2 * pi)
-        self.direction = pygame.Vector2(cos(alpha), sin(alpha))
+        x, y = float(cos(alpha)), float(sin(alpha))
+        self.direction = pygame.math.Vector2(x, y).normalize()
+
 
     def update(self, *args, **kwargs) -> None:
         self.move(self.speed)
@@ -78,7 +82,8 @@ class Player(Entity):
             self.direction.x = 0
 
     def update(self, *args, **kwargs) -> None:
-        self.input()
+        # self.input()
+        self.rotate(15)
         self.move(self.speed)
 
     class Enemy(Entity):
