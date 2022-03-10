@@ -51,6 +51,9 @@ class MovementAI:
 
         if self.target_condition():
 
+            for s in self.entity.collision_sprites: # collision script starts here
+                if s.rect.colliderect(self.entity.hitbox):
+                    print("Some collision occured")
             if (x, y) == self.last_pos:  # do zmiany
                 self.avoid_wall(x, y)
 
