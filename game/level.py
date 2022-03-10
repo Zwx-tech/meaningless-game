@@ -24,7 +24,7 @@ class Level:
                 elif t==2:
                     self.player = Player((TILE_SIZE*j, TILE_SIZE*i), [self.visible], self.obstacles)
                 elif t==3:
-                    TestEnemy((TILE_SIZE*j, TILE_SIZE*i), [self.visible, self.enemies], self.obstacles)
+                    TestEnemy((TILE_SIZE*j, TILE_SIZE*i), [self.visible, self.enemies], self.obstacles, player=self.player)
 
     def update(self) -> None:
         self.player.update()

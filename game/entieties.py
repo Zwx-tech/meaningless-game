@@ -2,6 +2,7 @@ import pygame
 from math import sin, cos, pi
 from debug import debug
 from settings import *
+import ai
 
 
 class Entity(pygame.sprite.Sprite):
@@ -47,11 +48,9 @@ class Entity(pygame.sprite.Sprite):
 
     def rotate(self, alpha=False):
         if alpha is False: self.direction = pygame.Vector2(0,0)
-        print(self.direction.magnitude())
         alpha = alpha/360 * (2 * pi)
         x, y = float(cos(alpha)), float(sin(alpha))
         self.direction = pygame.math.Vector2(x, y).normalize()
-
 
     def update(self, *args, **kwargs) -> None:
         self.move(self.speed)
@@ -82,9 +81,10 @@ class Player(Entity):
             self.direction.x = 0
 
     def update(self, *args, **kwargs) -> None:
-        # self.input()
-        self.rotate(15)
+        self.input()
         self.move(self.speed)
+        print("test2:", self.hitbox.x, self.hitbox.y)
+
 
 class Enemy(Entity):
 
@@ -97,11 +97,14 @@ class Enemy(Entity):
     def range_atack(self, directions, count, speed, range):
         pass
 
+
 class TestEnemy(Enemy):
 
-    def __init__(self, pos, grups, collision_sprites, image_path="graphic/test/player.png"):
+    def __init__(self, pos, grups, collision_sprites, image_path="graphic/test/rock.png", player=None):
         super().__init__(pos, grups, collision_sprites, image_path)
-        self.ai = None # u need to pass AI class here
+        self.ai = ai.create_ai(self, [ai.MovementAI])
+        self.player = player
+        self.speed = 3
 
     def mele_atack(self, directions, ):
         pass
@@ -110,5 +113,9 @@ class TestEnemy(Enemy):
         pass
 
     def update(self, *args, **kwargs) -> None:
-        # self.ai.decide()
+
+        if self.player is not None:
+            self.ai.set_target(self.player.hitbox.x, self.player.hitbox.y)
+
         self.move(self.speed)
+        self.ai.update()

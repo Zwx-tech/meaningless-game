@@ -4,8 +4,7 @@ from pathfinding.core.grid import Grid
 from pathfinding.finder.a_star import AStarFinder
 
 
-class AI:
-
+class MovementAI:
     def __init__(self, entity):
 
         self.entity = entity
@@ -33,7 +32,7 @@ class AI:
         path = self.find_path(x, y)
 
         if len(path) > 1:
-            self.temp_target = (path[1][0]*TILE_SIZE, path[1][1]*TILE_SIZE)
+            self.temp_target = (path[1][0] * TILE_SIZE, path[1][1] * TILE_SIZE)
 
     def find_path(self, x, y) -> list[tuple[int, int]]:
         grid = Grid(matrix=self.map_matrix)
@@ -52,7 +51,7 @@ class AI:
 
         if self.target_condition():
 
-            if (x, y) == self.last_pos:
+            if (x, y) == self.last_pos:  # do zmiany
                 self.avoid_wall(x, y)
 
             if self.temp_target is not None:
@@ -68,7 +67,6 @@ class AI:
                     self.temp_target = None
 
             else:
-                print(self.temp_target is not None)
 
                 angle = self.get_angle(x, y, tx, ty)
 
@@ -83,3 +81,20 @@ class AI:
     def update(self, *args, **kwargs) -> None:
         self.move()
 
+
+def create_ai(
+    entity,
+    ai_list: list[type] = [],
+):
+
+    class AI(*ai_list):
+
+        def __init__(self):
+
+            self.entity = entity
+            super(AI, self).__init__(self.entity)
+
+        def update(self, *args, **kwargs) -> None:
+            super(AI, self).update(*args, **kwargs)
+
+    return AI()
