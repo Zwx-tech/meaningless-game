@@ -52,6 +52,11 @@ class Entity(pygame.sprite.Sprite):
         x, y = float(cos(alpha)), float(sin(alpha))
         self.direction = pygame.math.Vector2(x, y).normalize()
 
+    def check_collsions(self):
+        if pygame.sprite.spritecollide(self, self.collision_sprites, False):
+            return True
+        return False
+
     def update(self, *args, **kwargs) -> None:
         self.move(self.speed)
 
@@ -83,7 +88,7 @@ class Player(Entity):
     def update(self, *args, **kwargs) -> None:
         self.input()
         self.move(self.speed)
-        print("test2:", self.hitbox.x, self.hitbox.y)
+        # print("test2:", self.hitbox.x, self.hitbox.y)
 
 
 class Enemy(Entity):
@@ -116,6 +121,5 @@ class TestEnemy(Enemy):
 
         if self.player is not None:
             self.ai.set_target(self.player.hitbox.x, self.player.hitbox.y)
-
         self.move(self.speed)
         self.ai.update()
