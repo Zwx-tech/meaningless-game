@@ -19,11 +19,11 @@ class Level:
     def load_map(self, map):
         for i, row in enumerate(map):
             for j, t in enumerate(row):
-                if t==1:
+                if t == 1:
                     Tile((TILE_SIZE*j, TILE_SIZE*i), [self.visible, self.obstacles])
-                elif t==2:
+                elif t == 2:
                     self.player = Player((TILE_SIZE*j, TILE_SIZE*i), [self.visible], self.obstacles)
-                elif t==3:
+                elif t == 3:
                     TestEnemy((TILE_SIZE*j, TILE_SIZE*i), [self.visible, self.enemies], self.obstacles, player=self.player)
 
     def update(self) -> None:

@@ -110,6 +110,9 @@ class TestEnemy(Enemy):
         self.ai = ai.create_ai(self, [ai.MovementAI])
         self.player = player
         self.speed = 3
+        self.hitbox.width = 62
+
+        print(self.hitbox, self.hitbox.size)
 
     def mele_atack(self, directions, ):
         pass
@@ -121,5 +124,6 @@ class TestEnemy(Enemy):
 
         if self.player is not None:
             self.ai.set_target(self.player.hitbox.x, self.player.hitbox.y)
-        self.move(self.speed)
+
         self.ai.update()
+        self.move(self.speed)
